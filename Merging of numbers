@@ -1,0 +1,81 @@
+"""
+The two functions created below, Merge_Left and Merge_Right
+tells us about the merging of two similar numbers on the left
+and in the right accordingly.
+"""
+
+def Merge_Left(user_list):               # function used to solve merging on the left side
+    
+    temporary = []                
+    final_list = []                 #final list made to store the final numbers which are going to be displayed in the o/p
+    
+    for i in user_list:
+        if i != 0:                         #this loop i made to remove the zeroes from the original list
+            temporary.append( i )             #temporary list made to store elements without the zeroes
+        
+    while len(temporary)  <  len(user_list):
+        temporary.append(0)   
+          
+    count = 0                #to keep track of the index number
+        
+    while count  < len(temporary) - 1:       #this checks for condition from the starting of the temporary list
+        if temporary[count] == temporary[count + 1]:
+
+#this loop is made for the multiplication of similar numbers and addition of the non-similar numbers to the final list
+            add = 2 *temporary[count]       
+            final_list.append( add )
+            count = count +  2
+        else:
+            final_list.append(temporary[count])
+            count = count + 1
+    
+    final_list_count = len(final_list)
+    user_list_count = len(user_list)
+    
+#this loop is made to check the equality of the length of the final list with the user list    
+    while final_list_count < user_list_count:       
+        final_list.append( 0)      #if it is same, final list is printed otherwise zeroes are added to the end of the list
+        final_list_count += 1
+    return final_list
+
+
+def Merge_Right(user_list):      # function used to solve merging on the right side
+    
+    temporary = []
+    final_list = []               #final list made to store the finl numbers which are going to be displayed in the o/p
+    
+    for i in user_list:            #this loop is made to remove the zeroes from the user list
+        if i != 0:
+            temporary.append( i )        #temporary list made to store elements without the zeroes
+        
+    count = 0                           #variable to track the index number
+    counter = len(temporary) - 1      #variable to track the length of the temporary list
+    
+    while counter-count > 0:            #this checks for condition from the end of the temporary list
+        v = counter - count
+        if temporary[v] == temporary[v-1]:            
+            add = 2 *temporary[v]          #this loop is made for the multiplication of the similar numbers and addition of the non-similar numbers to the final list
+            final_list.insert( 0, add )
+            count = count + 2
+        else:
+            final_list.insert( 0, temporary[v] )
+            count = count + 1
+        
+    if count < len(temporary):                 #this loop adds a number if it is not considered or left while checking for similarity in the above loop
+        final_list.insert( 0, temporary[counter-count] )
+        
+    final_list_count = len(final_list)
+    user_list_count=len(user_list)
+    
+    while final_list_count < user_list_count:         #this loop is made to check the equality of the length of the final list with the user list
+        final_list.insert( 0,0 )                    #if it is same, final list is printed otherwise zeroes are inserted in the begining of the list till the length is satisfied
+        final_list_count = final_list_count + 1
+    return final_list
+
+input_list = [[2, 4, 2, 2, 4], [2, 4, 2, 2, 0], [2, 0, 0, 2, 2], [2, 4, 0, 2, 0], [4, 0, 2, 2, 0]]         #list of 5 by 5
+
+for a in input_list:                        #to iterate over each list in another list
+   right = Merge_Right(a)                  #to call the Merge_Right function
+   left = Merge_Left(a)                   #to call the Merge_Left function
+   print( left )
+   #print(right)
